@@ -1,19 +1,15 @@
-import React from 'react'
-import { useContext } from 'react'
-import { AppContext } from '../context'
-import styles from './home.module.css'
-import { Experiment } from '../components'
+import React, { useContext } from "react";
+import { AppContext } from "../context";
+import { Experiment } from "../components";
+import styles from "./home.module.css";
 
 export default function Home() {
-  let { experiments } = useContext(AppContext)
+  const { experiments } = useContext(AppContext);
   return (
     <>
-    {
-    experiments.map((experiment, index) => {
-      return <Experiment key={index} experiment={experiment} />
-    })
-    }
+      {experiments.map((experiment, index) => {
+        return <Experiment key={index} experiment={experiment} />;
+      })}
     </>
-    
-  )
+  );
 }
