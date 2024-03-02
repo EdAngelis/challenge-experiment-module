@@ -39,6 +39,15 @@ export default function Iteration({ iteration, index }) {
     console.log("newExperiments", experiments);
   };
 
+  const removeIteration = () => {
+    const newExperiments = experiments.map((ex) => {
+      ex.iterations = ex.iterations.filter((it) => it.id !== iteration.id);
+      return ex;
+    });
+
+    setExperiments(newExperiments);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.content} onClick={toggleOpen}>
@@ -83,7 +92,7 @@ export default function Iteration({ iteration, index }) {
               </button>
             </div>
             <div className={styles.sizeButtons}>
-              <button onClick={() => setSize("0")}>REMOVE</button>
+              <button onClick={removeIteration}>REMOVE</button>
               <button onClick={toggleOpen}>DONE</button>
             </div>
           </div>

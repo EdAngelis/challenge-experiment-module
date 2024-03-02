@@ -86,6 +86,10 @@
     cursor: pointer;
 }
 
+.sizeButtons button:hover {
+    color: var(--font-3-color);
+}
+
 .unchecked {
     background-color: var(--font-1-color);
 
