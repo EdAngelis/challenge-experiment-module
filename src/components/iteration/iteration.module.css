@@ -57,7 +57,6 @@
 .selection div{
     width: 8px;
     height: 8px;
-    background-color: var(--selected-color);
     border-radius: 50%;
 }
 
@@ -85,6 +84,16 @@
     margin: 5px 0;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.unchecked {
+    background-color: var(--font-1-color);
+
+}
+
+.checked {
+    background-color: var(--selected-color);
+
 }
 
 

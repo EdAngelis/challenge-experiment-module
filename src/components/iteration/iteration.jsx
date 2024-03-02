@@ -41,13 +41,17 @@ export default function Iteration({ iteration, index }) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.content}>
+      <div className={styles.content} onClick={toggleOpen}>
         <span>EM-{index + 1}</span>
         <div className={styles.title}>{iteration.title}</div>
         {!iteration.open && (
-          <div onClick={toggleOpen} className={styles.selection}>
+          <div className={styles.selection}>
             <span>Selection</span>
-            <div className={styles.checked}></div>
+            <div
+              className={`${
+                iteration.size === "0" ? styles.unchecked : styles.checked
+              }`}
+            ></div>
           </div>
         )}
         {iteration.open && (
