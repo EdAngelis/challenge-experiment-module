@@ -12,7 +12,7 @@ export function AppProvider({ children }) {
         {
           id: 1,
           title: "Iteration 1",
-          promptSize: "",
+          size: "",
           selected: true,
           open: false,
         },
@@ -26,14 +26,14 @@ export function AppProvider({ children }) {
         {
           id: 2,
           title: "Iteration 1",
-          promptSize: "",
+          size: "",
           selected: true,
           open: false,
         },
         {
           id: 3,
           title: "Iteration 2",
-          promptSize: "",
+          size: "",
           selected: true,
           open: false,
         },
