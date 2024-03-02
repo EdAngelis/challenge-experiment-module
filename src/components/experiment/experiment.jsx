@@ -1,56 +1,56 @@
-import { useContext, useState } from "react";
-import { AppContext } from "../../context.jsx";
-import { Iteration } from "../index.jsx";
-import { FaLockOpen } from "react-icons/fa";
-import { FaLock } from "react-icons/fa";
-import styles from "./experiment.module.css";
+import { useContext, useState } from 'react'
+import { AppContext } from '../../context.jsx'
+import { Iteration } from '../index.jsx'
+import { FaLockOpen, FaLock } from 'react-icons/fa'
 
-export default function Experiment({ experiment }) {
-  const { experiments, setExperiments } = useContext(AppContext);
-  const [newIteration, setNewIteration] = useState("");
-  const [addIterationBoolean, setAddIteration] = useState(false);
+import styles from './experiment.module.css'
+
+export default function Experiment ({ experiment }) {
+  const { experiments, setExperiments } = useContext(AppContext)
+  const [newIteration, setNewIteration] = useState('')
+  const [addIterationBoolean, setAddIteration] = useState(false)
 
   const toggleExperimentModule = () => {
     const newExperiments = experiments.map((ex) => {
       if (ex.id === experiment.id) {
-        ex.open = !ex.open;
+        ex.open = !ex.open
       }
-      return ex;
-    });
-    setExperiments(newExperiments);
-  };
+      return ex
+    })
+    setExperiments(newExperiments)
+  }
 
   const blockUnblockExperiment = () => {
     const newExperiments = experiments.map((ex) => {
       if (ex.id === experiment.id) {
-        ex.blocked = !ex.blocked;
+        ex.blocked = !ex.blocked
       }
-      return ex;
-    });
-    setExperiments(newExperiments);
-  };
+      return ex
+    })
+    setExperiments(newExperiments)
+  }
 
   const resetExperiment = () => {
     const newExperiments = experiments.map((ex) => {
       if (ex.id === experiment.id) {
-        ex.iterations = [];
+        ex.iterations = []
       }
-      return ex;
-    });
-    setExperiments(newExperiments);
-  };
+      return ex
+    })
+    setExperiments(newExperiments)
+  }
 
   const addIteration = () => {
     const newExperiments = experiments.map((ex) => {
       if (ex.id_ === experiment.id_) {
-        ex.iterations.push({ title: newIteration, selected: true });
+        ex.iterations.push({ title: newIteration, selected: true })
       }
-      return ex;
-    });
-    setExperiments(newExperiments);
-    setNewIteration("");
-    setAddIteration(false);
-  };
+      return ex
+    })
+    setExperiments(newExperiments)
+    setNewIteration('')
+    setAddIteration(false)
+  }
   return (
     <div className={styles.container}>
       {/* TOP */}
@@ -77,7 +77,7 @@ export default function Experiment({ experiment }) {
                 <div key={index}>
                   <Iteration iteration={iteration} index={index} />
                 </div>
-              );
+              )
             })}
 
             {/* ADD ITERATION */}
@@ -85,11 +85,11 @@ export default function Experiment({ experiment }) {
               <div className={styles.iterationInput}>
                 <span>EM-{experiment.iterations.length + 1}</span>
                 <input
-                  type="text"
+                  type='text'
                   value={newIteration}
-                  placeholder="Adding iteration..."
+                  placeholder='Adding iteration...'
                   onChange={(e) => {
-                    setNewIteration(e.target.value);
+                    setNewIteration(e.target.value)
                   }}
                 />
               </div>
@@ -97,46 +97,48 @@ export default function Experiment({ experiment }) {
           </div>
 
           {/* ACTIONS */}
-          {!addIterationBoolean ? (
-            <div className={styles.actions}>
-              <button onClick={blockUnblockExperiment}>
-                {experiment.blocked ? "UNLOCK" : "LOCK"}
-              </button>
-              <button
-                onClick={() => {
-                  if (experiment.blocked === false) resetExperiment();
-                }}
-              >
-                RESET
-              </button>
-              <button
-                onClick={() => {
-                  if (experiment.blocked === false) setAddIteration(true);
-                }}
-              >
-                + ADD ITERATION
-              </button>
-            </div>
-          ) : (
-            <div className={styles.addIteration}>
-              <div className={styles.warn}>
-                To add a new iteration, start typing a promp or{" "}
-                <a href="">generate</a> one.
-              </div>
+          {!addIterationBoolean
+            ? (
               <div className={styles.actions}>
+                <button onClick={blockUnblockExperiment}>
+                  {experiment.blocked ? 'UNLOCK' : 'LOCK'}
+                </button>
                 <button
                   onClick={() => {
-                    setAddIteration(false);
+                    if (experiment.blocked === false) resetExperiment()
                   }}
                 >
-                  CANCEL
+                  RESET
                 </button>
-                <button onClick={addIteration}>DONE</button>
+                <button
+                  onClick={() => {
+                    if (experiment.blocked === false) setAddIteration(true)
+                  }}
+                >
+                  + ADD ITERATION
+                </button>
               </div>
-            </div>
-          )}
+              )
+            : (
+              <div className={styles.addIteration}>
+                <div className={styles.warn}>
+                  To add a new iteration, start typing a promp or{' '}
+                  <a href=''>generate</a> one.
+                </div>
+                <div className={styles.actions}>
+                  <button
+                    onClick={() => {
+                      setAddIteration(false)
+                    }}
+                  >
+                    CANCEL
+                  </button>
+                  <button onClick={addIteration}>DONE</button>
+                </div>
+              </div>
+              )}
         </div>
       )}
     </div>
-  );
+  )
 }

@@ -1,59 +1,59 @@
-import { useContext } from "react";
-import { AppContext } from "../../context";
-import styles from "./iteration.module.css";
+import { useContext } from 'react'
+import { AppContext } from '../../context'
+import styles from './iteration.module.css'
 
-export default function Iteration({ iteration, index }) {
-  const { experiments, setExperiments } = useContext(AppContext);
+export default function Iteration ({ iteration, index }) {
+  const { experiments, setExperiments } = useContext(AppContext)
 
   const toggleOpen = (open) => {
     const newExperiments = experiments.map((ex) => {
       ex.iterations = ex.iterations.map((it) => {
         if (it.id === iteration.id) {
-          it.open = open;
+          it.open = open
         }
-        return it;
-      });
-      return ex;
-    });
+        return it
+      })
+      return ex
+    })
 
-    setExperiments(newExperiments);
-  };
+    setExperiments(newExperiments)
+  }
 
   const setSize = (size) => {
     const newExperiments = experiments.map((ex) => {
       ex.iterations = ex.iterations.map((it) => {
         if (it.id === iteration.id) {
-          it.size = size;
+          it.size = size
         }
-        return it;
-      });
-      return ex;
-    });
-    setExperiments(newExperiments);
-  };
+        return it
+      })
+      return ex
+    })
+    setExperiments(newExperiments)
+  }
 
   const removeIteration = () => {
     const newExperiments = experiments.map((ex) => {
-      ex.iterations = ex.iterations.filter((it) => it.id !== iteration.id);
-      return ex;
-    });
+      ex.iterations = ex.iterations.filter((it) => it.id !== iteration.id)
+      return ex
+    })
 
-    setExperiments(newExperiments);
-  };
+    setExperiments(newExperiments)
+  }
 
   const toggleSelected = () => {
     const newExperiments = experiments.map((ex) => {
       ex.iterations = ex.iterations.map((it) => {
         if (it.id === iteration.id) {
-          it.selected = !it.selected;
+          it.selected = !it.selected
         }
-        return it;
-      });
-      return ex;
-    });
+        return it
+      })
+      return ex
+    })
 
-    setExperiments(newExperiments);
-  };
+    setExperiments(newExperiments)
+  }
 
   return (
     <div className={styles.container}>
@@ -62,7 +62,7 @@ export default function Iteration({ iteration, index }) {
         <div
           className={styles.title}
           onClick={() => {
-            toggleOpen(true);
+            toggleOpen(true)
           }}
         >
           {iteration.title}
@@ -74,7 +74,7 @@ export default function Iteration({ iteration, index }) {
               className={`${
                 iteration.selected === false ? styles.unchecked : styles.checked
               }`}
-            ></div>
+            />
           </div>
         )}
         {iteration.open && (
@@ -82,25 +82,25 @@ export default function Iteration({ iteration, index }) {
             <div className={styles.sizeContent}>
               <button
                 className={`${
-                  iteration.size === "1" ? styles.selected : styles.unselected
+                  iteration.size === '1' ? styles.selected : styles.unselected
                 }`}
-                onClick={() => setSize("1")}
+                onClick={() => setSize('1')}
               >
                 SHORT
               </button>
               <button
                 className={`${
-                  iteration.size === "2" ? styles.selected : styles.unselected
+                  iteration.size === '2' ? styles.selected : styles.unselected
                 }`}
-                onClick={() => setSize("2")}
+                onClick={() => setSize('2')}
               >
                 MEDIUM LENGTH
               </button>
               <button
                 className={`${
-                  iteration.size === "3" ? styles.selected : styles.unselected
+                  iteration.size === '3' ? styles.selected : styles.unselected
                 }`}
-                onClick={() => setSize("3")}
+                onClick={() => setSize('3')}
               >
                 VERY VERY VERY LONG (UP TO 35 CHAR)
               </button>
@@ -109,7 +109,7 @@ export default function Iteration({ iteration, index }) {
               <button onClick={removeIteration}>REMOVE</button>
               <button
                 onClick={() => {
-                  toggleOpen(false);
+                  toggleOpen(false)
                 }}
               >
                 DONE
@@ -119,5 +119,5 @@ export default function Iteration({ iteration, index }) {
         )}
       </div>
     </div>
-  );
+  )
 }

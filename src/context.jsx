@@ -1,8 +1,8 @@
-import { createContext, useState } from "react";
+import { createContext, useState } from 'react'
 
-export const AppContext = createContext();
+export const AppContext = createContext()
 
-export function AppProvider({ children }) {
+export function AppProvider ({ children }) {
   const [experiments, setExperiments] = useState([
     {
       id: 1,
@@ -11,12 +11,12 @@ export function AppProvider({ children }) {
       iterations: [
         {
           id: 1,
-          title: "Iteration 1",
-          size: "",
+          title: 'Iteration 1',
+          size: '',
           selected: true,
-          open: false,
-        },
-      ],
+          open: false
+        }
+      ]
     },
     {
       id: 2,
@@ -25,25 +25,25 @@ export function AppProvider({ children }) {
       iterations: [
         {
           id: 2,
-          title: "Iteration 1",
-          size: "",
+          title: 'Iteration 1',
+          size: '',
           selected: false,
-          open: false,
+          open: false
         },
         {
           id: 3,
-          title: "Iteration 2",
-          size: "",
+          title: 'Iteration 2',
+          size: '',
           selected: true,
-          open: false,
-        },
-      ],
-    },
-  ]);
+          open: false
+        }
+      ]
+    }
+  ])
 
   return (
     <AppContext.Provider value={{ experiments, setExperiments }}>
       {children}
     </AppContext.Provider>
-  );
+  )
 }
