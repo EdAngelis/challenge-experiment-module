@@ -1,6 +1,8 @@
 import { useContext, useState } from "react";
 import { AppContext } from "../../context.jsx";
 import { Iteration } from "../index.jsx";
+import { FaLockOpen } from "react-icons/fa";
+import { FaLock } from "react-icons/fa";
 import styles from "./experiment.module.css";
 
 export default function Experiment({ experiment }) {
@@ -51,13 +53,25 @@ export default function Experiment({ experiment }) {
   };
   return (
     <div className={styles.container}>
+      {/* TOP */}
       <div onClick={toggleExperimentModule} className={styles.top}>
-        <span>Experiment Module</span>
-        <span>{experiment.blocked ? "Blocked" : "Unblocked"}</span>
+        <span
+          className={`${
+            experiment.blocked === true ? styles.locked : styles.unlocked
+          }`}
+        >
+          Experiment Module
+        </span>
+        <span className={styles.icons}>
+          {experiment.blocked ? <FaLock /> : <FaLockOpen />}
+        </span>
       </div>
+
+      {/* CONTENT */}
       {experiment.open && (
-        <>
-          <div>
+        <div>
+          {/* ITERATIONS */}
+          <div className={styles.iterations}>
             {experiment.iterations.map((iteration, index) => {
               return (
                 <div key={index}>
@@ -65,8 +79,10 @@ export default function Experiment({ experiment }) {
                 </div>
               );
             })}
+
+            {/* ADD ITERATION */}
             {addIterationBoolean && (
-              <>
+              <div className={styles.iterationInput}>
                 <span>EM-{experiment.iterations.length + 1}</span>
                 <input
                   type="text"
@@ -76,27 +92,38 @@ export default function Experiment({ experiment }) {
                     setNewIteration(e.target.value);
                   }}
                 />
-              </>
+              </div>
             )}
           </div>
+
+          {/* ACTIONS */}
           {!addIterationBoolean ? (
-            <div>
+            <div className={styles.actions}>
               <button onClick={blockUnblockExperiment}>
                 {experiment.blocked ? "UNLOCK" : "LOCK"}
               </button>
-              <button onClick={resetExperiment}>RESET</button>
               <button
                 onClick={() => {
-                  setAddIteration(true);
+                  if (experiment.blocked === false) resetExperiment();
+                }}
+              >
+                RESET
+              </button>
+              <button
+                onClick={() => {
+                  if (experiment.blocked === false) setAddIteration(true);
                 }}
               >
                 + ADD ITERATION
               </button>
             </div>
           ) : (
-            <div className={styles.iterationInput}>
-              <div className={styles.iterationActions}>
-                <input />
+            <div className={styles.addIteration}>
+              <div className={styles.warn}>
+                To add a new iteration, start typing a promp or{" "}
+                <a href="">generate</a> one.
+              </div>
+              <div className={styles.actions}>
                 <button
                   onClick={() => {
                     setAddIteration(false);
@@ -108,7 +135,7 @@ export default function Experiment({ experiment }) {
               </div>
             </div>
           )}
-        </>
+        </div>
       )}
     </div>
   );

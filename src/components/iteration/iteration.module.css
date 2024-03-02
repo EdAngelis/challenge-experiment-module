@@ -1,0 +1,90 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr;
+    background-color: var(--background-2-color);
+    border-radius: 5px;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: 1fr 4fr max-content;
+    grid-template-rows: auto auto;
+    grid-template-areas: 
+    "index title selection"
+    ". size ."
+    ;
+    justify-content: space-between;
+    background-color: var(--background-2-color);
+    color: var(--font-1-color);
+    padding: 10px;
+    gap: 10px;
+    border-radius: 5px;
+
+}
+
+.size {
+    grid-area: size;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+}
+
+.sizeContent button {
+    background-color: transparent;
+    padding: 8px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.content span {
+    grid-area: index;
+}
+
+.title {
+    color: var(--font-2-color);
+    grid-area: title;
+}
+
+.selection {
+    display: flex;
+    grid-area: selection;
+    align-items: center;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+.selection div{
+    width: 8px;
+    height: 8px;
+    background-color: var(--selected-color);
+    border-radius: 50%;
+}
+
+.selected {
+    color: var(--selected-color);
+    border: var(--selected-color) 0.5px solid;
+}
+
+.unselected {
+    color: var(--font-1-color);
+    border: var(--font-1-color) 0.5px solid;
+}
+
+.sizeButtons {
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+}
+
+.sizeButtons button {
+    background-color: transparent;
+    color: var(--font-1-color);
+    border: none;
+    padding: 10px 0;
+    margin: 5px 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+

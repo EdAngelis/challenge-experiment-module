@@ -1,0 +1,112 @@
+.container {
+    max-width: 620px;
+    display: grid;
+    grid-template-columns: 1fr;
+    background-color: var(--background-1-color);
+    padding: 20px 20px ;
+    cursor: pointer;
+    gap: 10px;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    border-radius: 50%;
+    color: var(--font-3-color);
+    cursor: pointer;
+}
+
+.icons {
+    color: var(--font-1-color);
+}
+
+.unblocked {
+    color: var(--font-3-color);
+}
+
+.addIteration {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.iterationInput {
+    display: flex;
+    gap: 0 10px;
+    padding: 8px;
+    background-color: var(--background-2-color);
+}
+
+.iterationInput span {
+    color: var(--font-1-color);
+
+}
+
+.iterationInput input {
+    background-color: transparent;
+    border: none;
+    color: var(--font-1-color);
+    width: 80%;
+}
+
+.iterationInput, input:focus{
+    outline: none;
+}
+
+.actions {
+    display: flex;
+    gap: 0 40px;
+    justify-content: end;
+    padding: 0 10px;
+}
+
+.actions button {
+    background-color: transparent;
+    color: var(--font-1-color);
+    border: none;
+    padding: 10px 0;
+    margin: 5px 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.addIteration {
+    display: grid;
+    margin: 10px 0;
+    grid-template-columns: 1fr;
+}
+
+.addIteration button {
+    background-color: transparent;
+    color: var(--font-1-color);
+    border: none;
+    padding: 10px 0;
+    margin: 5px 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.warn {
+    padding: 10px 10px;
+    border-radius: 5px;
+    background-color: var(--background-2-color);
+    color: var(--font-1-color);
+}
+
+.warn a {
+    text-decoration: none;
+    text-decoration: underline;
+    color: var(--font-1-color);
+}
+
+.actions button:hover {
+    color: var(--font-3-color);
+}
+
+.locked {
+    color: var(--font-1-color);
+}
+
+.unselected {
+    color: var(--font-1-color);
+}

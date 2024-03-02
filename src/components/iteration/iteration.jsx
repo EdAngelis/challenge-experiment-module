@@ -21,12 +21,12 @@ export default function Iteration({ iteration, index }) {
     setExperiments(newExperiments);
   };
 
-  const promptSize = (size) => {
+  const setSize = (size) => {
     const newExperiments = experiments.map((ex) => {
       if (ex.iterations) {
         ex.iterations = ex.iterations.map((it) => {
           if (it.id === iteration.id) {
-            it.promptSize = size;
+            it.size = size;
           }
           return it;
         });
@@ -35,30 +35,56 @@ export default function Iteration({ iteration, index }) {
     });
 
     setExperiments(newExperiments);
-    console.log(experiments);
+
+    console.log("newExperiments", experiments);
   };
 
   return (
     <div className={styles.container}>
-      <span>EM-{index + 1}</span>
-      <div onClick={toggleOpen} className={styles.container}>
-        {iteration.title}
+      <div className={styles.content}>
+        <span>EM-{index + 1}</span>
+        <div className={styles.title}>{iteration.title}</div>
+        {!iteration.open && (
+          <div onClick={toggleOpen} className={styles.selection}>
+            <span>Selection</span>
+            <div className={styles.checked}></div>
+          </div>
+        )}
+        {iteration.open && (
+          <div className={styles.size}>
+            <div className={styles.sizeContent}>
+              <button
+                className={`${
+                  iteration.size === "1" ? styles.selected : styles.unselected
+                }`}
+                onClick={() => setSize("1")}
+              >
+                SHORT
+              </button>
+              <button
+                className={`${
+                  iteration.size === "2" ? styles.selected : styles.unselected
+                }`}
+                onClick={() => setSize("2")}
+              >
+                MEDIUM LENGTH
+              </button>
+              <button
+                className={`${
+                  iteration.size === "3" ? styles.selected : styles.unselected
+                }`}
+                onClick={() => setSize("3")}
+              >
+                VERY VERY VERY LONG (UP TO 35 CHAR)
+              </button>
+            </div>
+            <div className={styles.sizeButtons}>
+              <button onClick={() => setSize("0")}>REMOVE</button>
+              <button onClick={toggleOpen}>DONE</button>
+            </div>
+          </div>
+        )}
       </div>
-      {iteration.open && (
-        <>
-          <div>
-            <button onClick={() => promptSize("0")}>SHORT</button>
-            <button onClick={() => promptSize("1")}>MEDIUM LENGTH</button>
-            <button onClick={() => promptSize("2")}>
-              VERY VERY VERY LONG (UP TO 35 CHAR)
-            </button>
-          </div>
-          <div className={styles.actions}>
-            <button>REMOVE</button>
-            <button>DONE</button>
-          </div>
-        </>
-      )}
     </div>
   );
 }

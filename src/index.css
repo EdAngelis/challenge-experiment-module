@@ -1,3 +1,11 @@
+:root{
+  --background-1-color: rgb(25, 25, 25);
+  --background-2-color: #000000;
+  --selected-color: #01A43C;
+  --font-1-color: #757575;
+  --font-2-color: #BDBCBD;
+  --font-3-color: #FFFFFF;
+}
 body {
   margin: 0;
   place-items: center;
