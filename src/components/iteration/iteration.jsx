@@ -5,12 +5,12 @@ import styles from "./iteration.module.css";
 export default function Iteration({ iteration, index }) {
   const { experiments, setExperiments } = useContext(AppContext);
 
-  const toggleOpen = () => {
+  const toggleOpen = (open) => {
     const newExperiments = experiments.map((ex) => {
       if (ex.iterations) {
         ex.iterations = ex.iterations.map((it) => {
           if (it.id === iteration.id) {
-            it.open = !it.open;
+            it.open = open;
           }
           return it;
         });
@@ -33,10 +33,7 @@ export default function Iteration({ iteration, index }) {
       }
       return ex;
     });
-
     setExperiments(newExperiments);
-
-    console.log("newExperiments", experiments);
   };
 
   const removeIteration = () => {
@@ -50,11 +47,18 @@ export default function Iteration({ iteration, index }) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.content} onClick={toggleOpen}>
+      <div className={styles.content}>
         <span>EM-{index + 1}</span>
-        <div className={styles.title}>{iteration.title}</div>
+        <div
+          className={styles.title}
+          onClick={() => {
+            toggleOpen(true);
+          }}
+        >
+          {iteration.title}
+        </div>
         {!iteration.open && (
-          <div className={styles.selection}>
+          <div className={styles.selection} onClick={() => {}}>
             <span>Selection</span>
             <div
               className={`${
@@ -93,7 +97,13 @@ export default function Iteration({ iteration, index }) {
             </div>
             <div className={styles.sizeButtons}>
               <button onClick={removeIteration}>REMOVE</button>
-              <button onClick={toggleOpen}>DONE</button>
+              <button
+                onClick={() => {
+                  toggleOpen(false);
+                }}
+              >
+                DONE
+              </button>
             </div>
           </div>
         )}
