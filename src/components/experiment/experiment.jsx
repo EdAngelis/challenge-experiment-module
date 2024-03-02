@@ -17,7 +17,7 @@ export default function Experiment ({ experiment }) {
   const [addIterationBoolean, setAddIteration] = useState(false)
 
   const hAddIteration = async () => {
-    await addIteration(experiment, newIteration)
+    await addIteration(experiment.id, newIteration)
     setNewIteration('')
     setAddIteration(false)
   }

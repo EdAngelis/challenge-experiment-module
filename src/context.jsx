@@ -52,9 +52,9 @@ export function AppProvider ({ children }) {
     setExperiments(newExperiments)
   }
 
-  const addIteration = (experiment, newIteration) => {
+  const addIteration = (id, newIteration) => {
     const newExperiments = experiments.map((ex) => {
-      if (ex.id_ === experiment.id_) {
+      if (ex.id === id) {
         ex.iterations.push({ title: newIteration, selected: true })
       }
       return ex
