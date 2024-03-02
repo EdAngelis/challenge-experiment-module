@@ -39,90 +39,90 @@ export default function Experiment ({ experiment }) {
       </div>
 
       {/* CONTENT */}
-      {experiment.open && (
-        <div>
-          {/* ITERATIONS */}
-          <div className={styles.iterations}>
-            {experiment.iterations.map((iteration, index) => {
-              return (
-                <div key={index}>
-                  <Iteration iteration={iteration} index={index} />
-                </div>
-              )
-            })}
+      <div
+        className={`${styles.contentWrapper} ${experiment.open && styles.open}`}
+      >
+        {/* ITERATIONS */}
+        <div className={styles.iterations}>
+          {experiment.iterations.map((iteration, index) => {
+            return (
+              <div key={index}>
+                <Iteration iteration={iteration} index={index} />
+              </div>
+            )
+          })}
 
-            {/* ADD ITERATION */}
-            {addIterationBoolean && (
-              <div className={styles.iterationInput}>
-                <span>EM-{experiment.iterations.length + 1}</span>
-                <input
-                  type='text'
-                  value={newIteration}
-                  placeholder='Adding iteration...'
-                  onChange={(e) => {
-                    setNewIteration(e.target.value)
-                  }}
-                />
-              </div>
-            )}
-          </div>
-
-          {/* ACTIONS */}
-          {!addIterationBoolean
-            ? (
-              <div className={styles.actions}>
-                <button onClick={() => blockUnblockExperiment(experiment)}>
-                  {experiment.blocked ? 'UNLOCK' : 'LOCK'}
-                </button>
-                {experiment.blocked === false && (
-                  <button
-                    onClick={() => {
-                      resetExperiment(experiment)
-                    }}
-                  >
-                    RESET
-                  </button>
-                )}
-                {experiment.blocked === false && (
-                  <button
-                    onClick={() => {
-                      setAddIteration(true)
-                    }}
-                  >
-                    + ADD ITERATION
-                  </button>
-                )}
-                {experiment.blocked === false && (
-                  <button
-                    onClick={() => {
-                      removeModule(experiment.id)
-                    }}
-                  >
-                    REMOVE
-                  </button>
-                )}
-              </div>
-              )
-            : (
-              <div className={styles.addIteration}>
-                <div className={styles.warn}>
-                  To add a new iteration, start typing a promp or{' '}
-                  <a href=''>generate</a> one.
-                </div>
-                <div className={styles.actions}>
-                  <button
-                    onClick={() => {
-                      setAddIteration(false)
-                    }}
-                  >
-                    CANCEL
-                  </button>
-                  <button onClick={hAddIteration}>DONE</button>
-                </div>
-              </div>
-              )}
+          {/* ADD ITERATION */}
+          {addIterationBoolean && (
+            <div className={styles.iterationInput}>
+              <span>EM-{experiment.iterations.length + 1}</span>
+              <input
+                type='text'
+                value={newIteration}
+                placeholder='Adding iteration...'
+                onChange={(e) => {
+                  setNewIteration(e.target.value)
+                }}
+              />
+            </div>
+          )}
         </div>
-      )}
+
+        {/* ACTIONS */}
+        {!addIterationBoolean
+          ? (
+            <div className={styles.actions}>
+              <button onClick={() => blockUnblockExperiment(experiment)}>
+                {experiment.blocked ? 'UNLOCK' : 'LOCK'}
+              </button>
+              {experiment.blocked === false && (
+                <button
+                  onClick={() => {
+                    resetExperiment(experiment)
+                  }}
+                >
+                  RESET
+                </button>
+              )}
+              {experiment.blocked === false && (
+                <button
+                  onClick={() => {
+                    setAddIteration(true)
+                  }}
+                >
+                  + ADD ITERATION
+                </button>
+              )}
+              {experiment.blocked === false && (
+                <button
+                  onClick={() => {
+                    removeModule(experiment.id)
+                  }}
+                >
+                  REMOVE
+                </button>
+              )}
+            </div>
+            )
+          : (
+            <div className={styles.addIteration}>
+              <div className={styles.warn}>
+                To add a new iteration, start typing a promp or{' '}
+                <a href=''>generate</a> one.
+              </div>
+              <div className={styles.actions}>
+                <button
+                  onClick={() => {
+                    setAddIteration(false)
+                  }}
+                >
+                  CANCEL
+                </button>
+                <button onClick={hAddIteration}>DONE</button>
+              </div>
+            </div>
+            )}
+      </div>
     </div>
   )
 }

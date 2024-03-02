@@ -58,6 +58,11 @@
     gap: 0 40px;
     justify-content: end;
     padding: 0 10px;
+    overflow: hidden;
+}
+
+.iterations{
+    overflow: hidden;
 }
 
 .actions button {
@@ -109,4 +114,14 @@
 
 .unselected {
     color: var(--font-1-color);
+}
+
+.contentWrapper{
+    display: grid;
+    grid-template-rows: 0fr 0fr;
+    transition: grid-template-rows 0.5s;
+}
+
+.open {
+    grid-template-rows: 1fr 1fr;
 }
