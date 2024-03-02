@@ -6,8 +6,13 @@ import { FaLockOpen, FaLock } from 'react-icons/fa'
 import styles from './experiment.module.css'
 
 export default function Experiment ({ experiment }) {
-  const { toggleOpen, blockUnblockExperiment, resetExperiment, addIteration } =
-    useContext(AppContext)
+  const {
+    toggleOpen,
+    blockUnblockExperiment,
+    resetExperiment,
+    addIteration,
+    removeModule
+  } = useContext(AppContext)
   const [newIteration, setNewIteration] = useState('')
   const [addIterationBoolean, setAddIteration] = useState(false)
 
@@ -85,6 +90,15 @@ export default function Experiment ({ experiment }) {
                     }}
                   >
                     + ADD ITERATION
+                  </button>
+                )}
+                {experiment.blocked === false && (
+                  <button
+                    onClick={() => {
+                      removeModule(experiment.id)
+                    }}
+                  >
+                    REMOVE
                   </button>
                 )}
               </div>

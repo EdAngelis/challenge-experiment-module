@@ -5,6 +5,23 @@ export const AppContext = createContext()
 export function AppProvider ({ children }) {
   const [experiments, setExperiments] = useState(data)
 
+  const addModule = () => {
+    setExperiments([
+      ...experiments,
+      {
+        id: experiments.length + 1,
+        blocked: false,
+        open: false,
+        iterations: []
+      }
+    ])
+  }
+
+  const removeModule = (id) => {
+    const newExperiments = experiments.filter((ex) => ex.id !== id)
+    setExperiments(newExperiments)
+  }
+
   const toggleOpen = (experiment) => {
     const newExperiments = experiments.map((ex) => {
       if (ex.id === experiment.id) {
@@ -106,7 +123,9 @@ export function AppProvider ({ children }) {
         toggleIterationOpen,
         setSize,
         removeIteration,
-        toggleSelected
+        toggleSelected,
+        addModule,
+        removeModule
       }}
     >
       {children}
