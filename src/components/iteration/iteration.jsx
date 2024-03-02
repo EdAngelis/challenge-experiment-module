@@ -3,57 +3,14 @@ import { AppContext } from '../../context'
 import styles from './iteration.module.css'
 
 export default function Iteration ({ iteration, index }) {
-  const { experiments, setExperiments } = useContext(AppContext)
-
-  const toggleOpen = (open) => {
-    const newExperiments = experiments.map((ex) => {
-      ex.iterations = ex.iterations.map((it) => {
-        if (it.id === iteration.id) {
-          it.open = open
-        }
-        return it
-      })
-      return ex
-    })
-
-    setExperiments(newExperiments)
-  }
-
-  const setSize = (size) => {
-    const newExperiments = experiments.map((ex) => {
-      ex.iterations = ex.iterations.map((it) => {
-        if (it.id === iteration.id) {
-          it.size = size
-        }
-        return it
-      })
-      return ex
-    })
-    setExperiments(newExperiments)
-  }
-
-  const removeIteration = () => {
-    const newExperiments = experiments.map((ex) => {
-      ex.iterations = ex.iterations.filter((it) => it.id !== iteration.id)
-      return ex
-    })
-
-    setExperiments(newExperiments)
-  }
-
-  const toggleSelected = () => {
-    const newExperiments = experiments.map((ex) => {
-      ex.iterations = ex.iterations.map((it) => {
-        if (it.id === iteration.id) {
-          it.selected = !it.selected
-        }
-        return it
-      })
-      return ex
-    })
-
-    setExperiments(newExperiments)
-  }
+  const {
+    experiments,
+    setExperiments,
+    toggleIterationOpen,
+    setSize,
+    removeIteration,
+    toggleSelected
+  } = useContext(AppContext)
 
   return (
     <div className={styles.container}>
@@ -62,13 +19,16 @@ export default function Iteration ({ iteration, index }) {
         <div
           className={styles.title}
           onClick={() => {
-            toggleOpen(true)
+            toggleIterationOpen(true, iteration.id)
           }}
         >
           {iteration.title}
         </div>
         {!iteration.open && (
-          <div className={styles.selection} onClick={toggleSelected}>
+          <div
+            className={styles.selection}
+            onClick={() => toggleSelected(iteration.id)}
+          >
             <span>Selection</span>
             <div
               className={`${
@@ -84,7 +44,7 @@ export default function Iteration ({ iteration, index }) {
                 className={`${
                   iteration.size === '1' ? styles.selected : styles.unselected
                 }`}
-                onClick={() => setSize('1')}
+                onClick={() => setSize('1', iteration.id)}
               >
                 SHORT
               </button>
@@ -92,7 +52,7 @@ export default function Iteration ({ iteration, index }) {
                 className={`${
                   iteration.size === '2' ? styles.selected : styles.unselected
                 }`}
-                onClick={() => setSize('2')}
+                onClick={() => setSize('2', iteration.id)}
               >
                 MEDIUM LENGTH
               </button>
@@ -100,16 +60,18 @@ export default function Iteration ({ iteration, index }) {
                 className={`${
                   iteration.size === '3' ? styles.selected : styles.unselected
                 }`}
-                onClick={() => setSize('3')}
+                onClick={() => setSize('3', iteration.id)}
               >
                 VERY VERY VERY LONG (UP TO 35 CHAR)
               </button>
             </div>
             <div className={styles.sizeButtons}>
-              <button onClick={removeIteration}>REMOVE</button>
+              <button onClick={() => removeIteration(iteration.id)}>
+                REMOVE
+              </button>
               <button
                 onClick={() => {
-                  toggleOpen(false)
+                  toggleIterationOpen(false, iteration.id)
                 }}
               >
                 DONE

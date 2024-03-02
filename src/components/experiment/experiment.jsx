@@ -6,55 +6,21 @@ import { FaLockOpen, FaLock } from 'react-icons/fa'
 import styles from './experiment.module.css'
 
 export default function Experiment ({ experiment }) {
-  const { experiments, setExperiments } = useContext(AppContext)
+  const { toggleOpen, blockUnblockExperiment, resetExperiment, addIteration } =
+    useContext(AppContext)
   const [newIteration, setNewIteration] = useState('')
   const [addIterationBoolean, setAddIteration] = useState(false)
 
-  const toggleExperimentModule = () => {
-    const newExperiments = experiments.map((ex) => {
-      if (ex.id === experiment.id) {
-        ex.open = !ex.open
-      }
-      return ex
-    })
-    setExperiments(newExperiments)
-  }
-
-  const blockUnblockExperiment = () => {
-    const newExperiments = experiments.map((ex) => {
-      if (ex.id === experiment.id) {
-        ex.blocked = !ex.blocked
-      }
-      return ex
-    })
-    setExperiments(newExperiments)
-  }
-
-  const resetExperiment = () => {
-    const newExperiments = experiments.map((ex) => {
-      if (ex.id === experiment.id) {
-        ex.iterations = []
-      }
-      return ex
-    })
-    setExperiments(newExperiments)
-  }
-
-  const addIteration = () => {
-    const newExperiments = experiments.map((ex) => {
-      if (ex.id_ === experiment.id_) {
-        ex.iterations.push({ title: newIteration, selected: true })
-      }
-      return ex
-    })
-    setExperiments(newExperiments)
+  const hAddIteration = async () => {
+    await addIteration(experiment, newIteration)
     setNewIteration('')
     setAddIteration(false)
   }
+
   return (
     <div className={styles.container}>
       {/* TOP */}
-      <div onClick={toggleExperimentModule} className={styles.top}>
+      <div onClick={() => toggleOpen(experiment)} className={styles.top}>
         <span
           className={`${
             experiment.blocked === true ? styles.locked : styles.unlocked
@@ -100,23 +66,27 @@ export default function Experiment ({ experiment }) {
           {!addIterationBoolean
             ? (
               <div className={styles.actions}>
-                <button onClick={blockUnblockExperiment}>
+                <button onClick={() => blockUnblockExperiment(experiment)}>
                   {experiment.blocked ? 'UNLOCK' : 'LOCK'}
                 </button>
-                <button
-                  onClick={() => {
-                    if (experiment.blocked === false) resetExperiment()
-                  }}
-                >
-                  RESET
-                </button>
-                <button
-                  onClick={() => {
-                    if (experiment.blocked === false) setAddIteration(true)
-                  }}
-                >
-                  + ADD ITERATION
-                </button>
+                {experiment.blocked === false && (
+                  <button
+                    onClick={() => {
+                      resetExperiment(experiment)
+                    }}
+                  >
+                    RESET
+                  </button>
+                )}
+                {experiment.blocked === false && (
+                  <button
+                    onClick={() => {
+                      setAddIteration(true)
+                    }}
+                  >
+                    + ADD ITERATION
+                  </button>
+                )}
               </div>
               )
             : (
@@ -133,7 +103,7 @@ export default function Experiment ({ experiment }) {
                   >
                     CANCEL
                   </button>
-                  <button onClick={addIteration}>DONE</button>
+                  <button onClick={hAddIteration}>DONE</button>
                 </div>
               </div>
               )}
