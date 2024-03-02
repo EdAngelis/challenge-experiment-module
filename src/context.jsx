@@ -27,7 +27,7 @@ export function AppProvider({ children }) {
           id: 2,
           title: "Iteration 1",
           size: "",
-          selected: true,
+          selected: false,
           open: false,
         },
         {

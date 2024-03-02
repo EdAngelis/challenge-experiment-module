@@ -7,14 +7,12 @@ export default function Iteration({ iteration, index }) {
 
   const toggleOpen = (open) => {
     const newExperiments = experiments.map((ex) => {
-      if (ex.iterations) {
-        ex.iterations = ex.iterations.map((it) => {
-          if (it.id === iteration.id) {
-            it.open = open;
-          }
-          return it;
-        });
-      }
+      ex.iterations = ex.iterations.map((it) => {
+        if (it.id === iteration.id) {
+          it.open = open;
+        }
+        return it;
+      });
       return ex;
     });
 
@@ -23,14 +21,12 @@ export default function Iteration({ iteration, index }) {
 
   const setSize = (size) => {
     const newExperiments = experiments.map((ex) => {
-      if (ex.iterations) {
-        ex.iterations = ex.iterations.map((it) => {
-          if (it.id === iteration.id) {
-            it.size = size;
-          }
-          return it;
-        });
-      }
+      ex.iterations = ex.iterations.map((it) => {
+        if (it.id === iteration.id) {
+          it.size = size;
+        }
+        return it;
+      });
       return ex;
     });
     setExperiments(newExperiments);
@@ -39,6 +35,20 @@ export default function Iteration({ iteration, index }) {
   const removeIteration = () => {
     const newExperiments = experiments.map((ex) => {
       ex.iterations = ex.iterations.filter((it) => it.id !== iteration.id);
+      return ex;
+    });
+
+    setExperiments(newExperiments);
+  };
+
+  const toggleSelected = () => {
+    const newExperiments = experiments.map((ex) => {
+      ex.iterations = ex.iterations.map((it) => {
+        if (it.id === iteration.id) {
+          it.selected = !it.selected;
+        }
+        return it;
+      });
       return ex;
     });
 
@@ -58,11 +68,11 @@ export default function Iteration({ iteration, index }) {
           {iteration.title}
         </div>
         {!iteration.open && (
-          <div className={styles.selection} onClick={() => {}}>
+          <div className={styles.selection} onClick={toggleSelected}>
             <span>Selection</span>
             <div
               className={`${
-                iteration.size === "0" ? styles.unchecked : styles.checked
+                iteration.selected === false ? styles.unchecked : styles.checked
               }`}
             ></div>
           </div>
