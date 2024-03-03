@@ -3,12 +3,13 @@
     grid-template-columns: 1fr;
     background-color: var(--background-2-color);
     border-radius: 5px;
+    margin-top: 25px;
 }
 
 .content {
     display: grid;
     grid-template-columns: 1fr 4fr 2fr;
-    grid-template-rows: auto 0fr;
+    grid-template-rows: 1fr 0fr;
     grid-template-areas: 
     "index title selection"
     ". size size"
@@ -114,6 +115,62 @@
 
 .divider {
     border-bottom: 1px solid var(--font-1-color);
+}
+.index {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+@media ( max-width: 500px){
+    .index {
+        display: none;
+    }
+
+    .content {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-template-areas: 
+        "title selection"
+        "size size"
+        ;
+    }
+}
+
+@media ( max-width: 325px){
+    .content {
+        display: grid;
+        padding: 5px 0;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 0fr 0fr;
+        justify-items: center;
+        grid-template-areas: 
+        "title"
+        "selection"
+        "size"
+        ;
+    }
+
+    .sizeContent {
+        gap: 5px;
+        padding: 10px 5px;
+    }
+
+    .sizeContent button {
+        padding: 5px;
+        font-size: 15px;
+    }
+    .open {
+        grid-template-rows: auto 1fr;
+    }
+
+    .selection {
+        justify-content: center;
+    }
+    
+    .sizeButtons button {
+        padding-top: 10px;
+        font-weight: bold;
+    }
 }
 
 

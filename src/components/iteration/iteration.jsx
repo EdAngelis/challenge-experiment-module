@@ -9,7 +9,7 @@ export default function Iteration ({ iteration, index }) {
   return (
     <div className={styles.container}>
       <div className={`${styles.content} ${iteration.open && styles.open}`}>
-        <span>EM-{index + 1}</span>
+        <span className={styles.index}>EM-{index + 1}</span>
         <div
           className={styles.title}
           onClick={() => {
@@ -18,6 +18,7 @@ export default function Iteration ({ iteration, index }) {
         >
           {iteration.title}
         </div>
+
         {!iteration.open && (
           <div
             className={styles.selection}
@@ -34,6 +35,7 @@ export default function Iteration ({ iteration, index }) {
         <div className={`${styles.size} `}>
           <div className={styles.sizeContent}>
             <button
+              type='button'
               className={`${
                 iteration.size === '1' ? styles.selected : styles.unselected
               }`}
@@ -42,6 +44,7 @@ export default function Iteration ({ iteration, index }) {
               SHORT
             </button>
             <button
+              type='button'
               className={`${
                 iteration.size === '2' ? styles.selected : styles.unselected
               }`}
@@ -50,6 +53,7 @@ export default function Iteration ({ iteration, index }) {
               MEDIUM LENGTH
             </button>
             <button
+              type='button'
               className={`${
                 iteration.size === '3' ? styles.selected : styles.unselected
               }`}
@@ -60,10 +64,11 @@ export default function Iteration ({ iteration, index }) {
           </div>
           <div className={styles.divider} />
           <div className={styles.sizeButtons}>
-            <button onClick={() => removeIteration(iteration.id)}>
+            <button type='button' onClick={() => removeIteration(iteration.id)}>
               REMOVE
             </button>
             <button
+              type='button'
               onClick={() => {
                 toggleIterationOpen(false, iteration.id)
               }}

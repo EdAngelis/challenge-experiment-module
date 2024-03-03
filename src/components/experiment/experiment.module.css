@@ -7,10 +7,10 @@
 .top {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     border-radius: 10px;
     color: var(--font-3-color);
     cursor: pointer;
-    margin-bottom: 25px;
     font-size: 26px ;
 }
 
@@ -29,9 +29,9 @@
 
 .iterationInput {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0 40px;
     background-color: var(--background-2-color);
+    gap: 20px;
+    margin-top: 10px;
     font-size: 20.5px;
     padding: 12px 15px;
     border-radius: 0 0 10px 10px;
@@ -39,6 +39,7 @@
 
 .iterationInput span {
     color: var(--font-1-color);
+    flex-shrink: 0;
 }
 .iterationInput input::placeholder {
     font-size: 20.5px;
@@ -68,7 +69,8 @@ textarea {
 
 .actions {
     display: flex;
-    gap: 0 20px;
+    flex-wrap: wrap;
+    gap: 20px 20px;
     justify-content: end;
     overflow: hidden;
     margin-top: 25px;
@@ -160,4 +162,16 @@ form {
 .generate {
     cursor: pointer;
     text-decoration: underline;
+}
+
+@media (max-width: 325px) {
+    .actions {
+        justify-items: center;
+    }
+
+    .container {
+        max-width: 530px;
+        background-color: var(--background-1-color);
+        padding: 20px 10px;
+    }
 }
