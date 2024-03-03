@@ -31,7 +31,7 @@ export default function Iteration ({ iteration, index }) {
             />
           </div>
         )}
-        <div className={`${styles.size} ${iteration.open && styles.opacity}`}>
+        <div className={`${styles.size} `}>
           <div className={styles.sizeContent}>
             <button
               className={`${
@@ -58,6 +58,7 @@ export default function Iteration ({ iteration, index }) {
               VERY VERY VERY LONG (UP TO 35 CHAR)
             </button>
           </div>
+          <div className={styles.divider} />
           <div className={styles.sizeButtons}>
             <button onClick={() => removeIteration(iteration.id)}>
               REMOVE

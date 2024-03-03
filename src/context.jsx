@@ -54,14 +54,9 @@ export function AppProvider ({ children }) {
   }
 
   const addIteration = (id, newIteration) => {
-    const uniqueId = () => parseInt(Date.now() * Math.random()).toString()
     const newExperiments = experiments.map((ex) => {
       if (ex.id === id) {
-        ex.iterations.push({
-          id: uniqueId,
-          title: newIteration,
-          selected: true
-        })
+        ex.iterations.push(newIteration)
       }
       return ex
     })

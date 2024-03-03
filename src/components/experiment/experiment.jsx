@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { AppContext } from '../../context.jsx'
 import { Iteration } from '../index.jsx'
 import { FaLockOpen, FaLock } from 'react-icons/fa'
@@ -13,13 +14,24 @@ export default function Experiment ({ experiment }) {
     addIteration,
     removeModule
   } = useContext(AppContext)
-  const [newIteration, setNewIteration] = useState('')
   const [addIterationBoolean, setAddIteration] = useState(false)
+  const [typing, setTyping] = useState(false)
 
-  const hAddIteration = async () => {
+  const { register, handleSubmit } = useForm({})
+
+  const hSubmit = async (data) => {
+    console.log(data)
+    const newIteration = {
+      id: parseInt(Date.now() * Math.random()).toString(),
+      prompt: data.prompt,
+      size: '1',
+      title: data.title,
+      open: false,
+      selected: true
+    }
     await addIteration(experiment.id, newIteration)
-    setNewIteration('')
     setAddIteration(false)
+    setTyping(false)
   }
 
   return (
@@ -33,9 +45,11 @@ export default function Experiment ({ experiment }) {
         >
           Experiment Module
         </span>
-        <div className={styles.icons}>
-          {experiment.blocked ? <FaLock /> : <FaLockOpen />}
-        </div>
+        {experiment.iterations.length > 0 && (
+          <div className={styles.icons}>
+            {experiment.blocked ? <FaLock /> : <FaLockOpen />}
+          </div>
+        )}
       </div>
 
       {/* CONTENT */}
@@ -43,85 +57,115 @@ export default function Experiment ({ experiment }) {
         className={`${styles.contentWrapper} ${experiment.open && styles.open}`}
       >
         {/* ITERATIONS */}
-        <div className={styles.iterations}>
-          {experiment.iterations.map((iteration, index) => {
-            return (
-              <div key={index}>
-                <Iteration iteration={iteration} index={index} />
-              </div>
-            )
-          })}
+        <form onSubmit={handleSubmit(hSubmit)}>
+          <div className={styles.iterations}>
+            {experiment.iterations.map((iteration, index) => {
+              return (
+                <div key={index}>
+                  <Iteration iteration={iteration} index={index} />
+                </div>
+              )
+            })}
 
-          {/* ADD ITERATION */}
-          {addIterationBoolean && (
-            <div className={styles.iterationInput}>
-              <span>EM-{experiment.iterations.length + 1}</span>
-              <input
-                type='text'
-                value={newIteration}
-                placeholder='Adding iteration...'
-                onChange={(e) => {
-                  setNewIteration(e.target.value)
-                }}
-              />
-            </div>
-          )}
-        </div>
-
-        {/* ACTIONS */}
-        {!addIterationBoolean
-          ? (
-            <div className={styles.actions}>
-              <button onClick={() => blockUnblockExperiment(experiment)}>
-                {experiment.blocked ? 'UNLOCK' : 'LOCK'}
-              </button>
-              {experiment.blocked === false && (
-                <button
-                  onClick={() => {
-                    resetExperiment(experiment)
-                  }}
-                >
-                  RESET
-                </button>
-              )}
-              {experiment.blocked === false && (
-                <button
-                  onClick={() => {
-                    setAddIteration(true)
-                  }}
-                >
-                  + ADD ITERATION
-                </button>
-              )}
-              {experiment.blocked === false && (
-                <button
-                  onClick={() => {
-                    removeModule(experiment.id)
-                  }}
-                >
-                  REMOVE
-                </button>
-              )}
-            </div>
-            )
-          : (
-            <div className={styles.addIteration}>
-              <div className={styles.warn}>
-                To add a new iteration, start typing a promp or{' '}
-                <a href=''>generate</a> one.
+            {/* ADD ITERATION */}
+            {(addIterationBoolean || experiment.iterations.length < 1) && (
+              <div className={styles.iterationInput}>
+                <span>EM-{experiment.iterations.length + 1}</span>
+                <input
+                  type='text'
+                  {...register('title')}
+                  placeholder='Adding iteration...'
+                />
               </div>
+            )}
+          </div>
+
+          {/* ACTIONS */}
+          {!addIterationBoolean && experiment.iterations.length >= 1
+            ? (
               <div className={styles.actions}>
                 <button
-                  onClick={() => {
-                    setAddIteration(false)
-                  }}
+                  type='button'
+                  onClick={() => blockUnblockExperiment(experiment)}
                 >
-                  CANCEL
+                  {experiment.blocked ? 'UNLOCK' : 'LOCK'}
                 </button>
-                <button onClick={hAddIteration}>DONE</button>
+                {experiment.blocked === false && (
+                  <button
+                    type='button'
+                    onClick={() => {
+                      resetExperiment(experiment)
+                    }}
+                  >
+                    RESET
+                  </button>
+                )}
+                {experiment.blocked === false && (
+                  <button
+                    type='button'
+                    onClick={() => {
+                      setAddIteration(true)
+                    }}
+                  >
+                    + ADD ITERATION
+                  </button>
+                )}
+                {experiment.blocked === false && (
+                  <button
+                    type='button'
+                    onClick={() => {
+                      removeModule(experiment.id)
+                    }}
+                  >
+                    REMOVE
+                  </button>
+                )}
               </div>
-            </div>
-            )}
+              )
+            : (
+              <div className={styles.addIteration}>
+                {!typing
+                  ? (
+                    <div className={styles.warn}>
+                      <span onClick={() => setTyping(!typing)}>
+                        To add a new iteration, start typing a prompt or{' '}
+                      </span>
+                      <span
+                        className={styles.generate}
+                        onClick={() => {
+                          setTyping(false)
+                        }}
+                      >
+                        generate
+                      </span>{' '}
+                      one.
+                    </div>
+                    )
+                  : (
+                    <textarea
+                      rows='3'
+                      cols='50'
+                      type='text'
+                      {...register('prompt')}
+                      autoFocus
+                    />
+                    )}
+
+                <div className={styles.actions}>
+                  <button
+                    type='button'
+                    onClick={() => {
+                      setAddIteration(false)
+                      setTyping(false)
+                    }}
+                  >
+                    CANCEL
+                  </button>
+                  <button type='submit'>DONE</button>
+                </div>
+              </div>
+              )}
+        </form>
       </div>
     </div>
   )
