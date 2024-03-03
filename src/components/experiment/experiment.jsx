@@ -33,9 +33,9 @@ export default function Experiment ({ experiment }) {
         >
           Experiment Module
         </span>
-        <span className={styles.icons}>
+        <div className={styles.icons}>
           {experiment.blocked ? <FaLock /> : <FaLockOpen />}
-        </span>
+        </div>
       </div>
 
       {/* CONTENT */}

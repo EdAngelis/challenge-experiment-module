@@ -1,21 +1,18 @@
 .container {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 25px 0;
     max-width: 530px;
     background-color: var(--background-1-color);
     padding: 45px 25px;
     cursor: pointer;
-    gap: 25px;
 }
 
 .top {
     display: flex;
     justify-content: space-between;
-    padding: 0 10px;
-    border-radius: 50%;
+    border-radius: 10px;
     color: var(--font-3-color);
     cursor: pointer;
+    margin-bottom: 25px;
+    font-size: 26px ;
 }
 
 .icons {
@@ -59,9 +56,13 @@
     gap: 0 40px;
     justify-content: end;
     overflow: hidden;
+    margin-top: 25px;
 }
 
 .iterations{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2px;
     overflow: hidden;
 }
 
@@ -116,7 +117,6 @@
     display: grid;
     grid-template-rows: 0fr 0fr;
     transition: grid-template-rows 0.5s;
-    gap: 25px 0;
 }
 
 .open {
