@@ -19,7 +19,7 @@ export default function Experiment ({ experiment }) {
   const [addIterationBoolean, setAddIteration] = useState(false)
   const [typing, setTyping] = useState(false)
 
-  const { register, handleSubmit, formState, clearErrors } = useForm({
+  const { register, handleSubmit, formState, clearErrors, setValue } = useForm({
     resolver: yupResolver(
       yup.object().shape({
         title: yup.string().required('Title is required'),
@@ -31,7 +31,6 @@ export default function Experiment ({ experiment }) {
   const { errors } = formState
 
   const hSubmit = async (data) => {
-    console.log(data)
     const newIteration = {
       id: parseInt(Date.now() * Math.random()).toString(),
       prompt: data.prompt,
@@ -43,12 +42,27 @@ export default function Experiment ({ experiment }) {
     await addIteration(experiment.id, newIteration)
     setAddIteration(false)
     setTyping(false)
+    setValue('title', '')
+    setValue('prompt', '')
+  }
+
+  const generatePrompt = () => {
+    setValue('prompt', 'This is a prompt auto-generated.')
+    setTyping(true)
+  }
+
+  const hCancel = () => {
+    setAddIteration(false)
+    setTyping(false)
+    setValue('title', '')
+    setValue('prompt', '')
+    clearErrors()
   }
 
   return (
     <div className={styles.container}>
       {/* TOP */}
-      <div onClick={() => toggleOpen(experiment)} className={styles.top}>
+      <div className={styles.top} onClick={() => toggleOpen(experiment)}>
         <span
           className={`${
             experiment.blocked === true ? styles.locked : styles.unlocked
@@ -72,7 +86,16 @@ export default function Experiment ({ experiment }) {
           <div className={styles.iterations}>
             {experiment.iterations.map((iteration, index) => {
               return (
-                <div className={styles.iterationElements} key={index}>
+                <div
+                  className={`${styles.iterationElements} ${
+                    index === 0 && styles.first
+                  } ${
+                    index === experiment.iterations.length - 1 &&
+                    !addIterationBoolean &&
+                    styles.last
+                  }`}
+                  key={index}
+                >
                   <Iteration iteration={iteration} index={index} />
                 </div>
               )
@@ -141,12 +164,7 @@ export default function Experiment ({ experiment }) {
                       <span onClick={() => setTyping(!typing)}>
                         To add a new iteration, start typing a prompt or{' '}
                       </span>
-                      <span
-                        className={styles.generate}
-                        onClick={() => {
-                          setTyping(false)
-                        }}
-                      >
+                      <span className={styles.generate} onClick={generatePrompt}>
                         generate
                       </span>{' '}
                       one.
@@ -163,14 +181,7 @@ export default function Experiment ({ experiment }) {
                     )}
 
                 <div className={styles.actions}>
-                  <button
-                    type='button'
-                    onClick={() => {
-                      setAddIteration(false)
-                      setTyping(false)
-                      clearErrors()
-                    }}
-                  >
+                  <button type='button' onClick={hCancel}>
                     CANCEL
                   </button>
                   <button type='submit'>DONE</button>

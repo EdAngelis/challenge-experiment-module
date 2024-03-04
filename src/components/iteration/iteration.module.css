@@ -7,10 +7,7 @@
         " . drawer"
     ;
     transition: grid-template-rows 0.5s;
-    background-color: var(--background-2-color);
-    border: 1px solid red;
-    border-radius: 10px;
-    margin-top: 25px;
+    /* background-color: var(--background-2-color); */
 }
 .open{
     grid-template-rows: min-content 1fr;
@@ -26,7 +23,6 @@
 .row {
     grid-area: row;
     display: flex;
-    background-color: var(--background-2-color);
     color: var(--font-1-color);
     gap: 20px;
     padding: 15px;
