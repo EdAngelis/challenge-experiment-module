@@ -26,7 +26,6 @@
     display: grid;
     grid-template-columns: 1fr;
 }
-
 .iterationInput {
     display: flex;
     background-color: var(--background-2-color);

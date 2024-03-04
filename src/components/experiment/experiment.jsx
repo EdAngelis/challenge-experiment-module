@@ -72,7 +72,7 @@ export default function Experiment ({ experiment }) {
           <div className={styles.iterations}>
             {experiment.iterations.map((iteration, index) => {
               return (
-                <div key={index}>
+                <div className={styles.iterationElements} key={index}>
                   <Iteration iteration={iteration} index={index} />
                 </div>
               )
