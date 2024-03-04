@@ -61,7 +61,6 @@
 .selection {
     display: flex;
     grid-area: selection;
-    align-items: center;
     gap: 8px;
     justify-content: flex-end;
     cursor: pointer;
@@ -71,6 +70,8 @@
     width: 8px;
     height: 8px;
     border-radius: 50%;
+    display: flex;
+    align-self: center;
 }
 
 .selected {
@@ -118,7 +119,6 @@
 }
 .index {
     display: flex;
-    align-items: center;
     white-space: nowrap;
 }
 @media ( max-width: 500px){

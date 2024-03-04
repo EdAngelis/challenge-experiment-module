@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form'
 import { AppContext } from '../../context.jsx'
 import { Iteration } from '../index.jsx'
 import { FaLockOpen, FaLock } from 'react-icons/fa'
+import * as yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 import styles from './experiment.module.css'
 
@@ -17,7 +19,16 @@ export default function Experiment ({ experiment }) {
   const [addIterationBoolean, setAddIteration] = useState(false)
   const [typing, setTyping] = useState(false)
 
-  const { register, handleSubmit } = useForm({})
+  const { register, handleSubmit, formState, clearErrors } = useForm({
+    resolver: yupResolver(
+      yup.object().shape({
+        title: yup.string().required('Title is required'),
+        prompt: yup.string().required('Prompt is required')
+      })
+    )
+  })
+
+  const { errors } = formState
 
   const hSubmit = async (data) => {
     console.log(data)
@@ -157,6 +168,7 @@ export default function Experiment ({ experiment }) {
                     onClick={() => {
                       setAddIteration(false)
                       setTyping(false)
+                      clearErrors()
                     }}
                   >
                     CANCEL
@@ -167,6 +179,12 @@ export default function Experiment ({ experiment }) {
               )}
         </form>
       </div>
+      {errors.title && (
+        <div className={styles.error}>{errors.title.message}</div>
+      )}
+      {errors.prompt && (
+        <div className={styles.error}>{errors.prompt.message}</div>
+      )}
     </div>
   )
 }

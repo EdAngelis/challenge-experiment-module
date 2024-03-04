@@ -8,6 +8,7 @@
   --font-1-color: #757575;
   --font-2-color: #BDBCBD;
   --font-3-color: #FFFFFF;
+  --error-color: #FF0000;
 }
 body {
   margin: 0;

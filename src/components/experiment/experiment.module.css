@@ -164,6 +164,16 @@ form {
     text-decoration: underline;
 }
 
+.error {
+    font-size: 20px;
+    text-align: center;
+    color: var(--error-color);
+    margin-top: 2px;
+    padding: 5px;
+    background-color: rgb(255, 0, 0, 0.1);
+    
+}
+
 @media (max-width: 325px) {
     .actions {
         justify-items: center;
