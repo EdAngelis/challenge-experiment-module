@@ -13,6 +13,9 @@
     cursor: pointer;
     font-size: 26px ;
 }
+.coverTitle{
+    font-weight: 700;
+}
 
 .icons {
     color: var(--font-1-color);

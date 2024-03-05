@@ -19,6 +19,10 @@
     padding: 12px 40px 12px 12px;
     flex-basis: 8 0px;
     white-space: nowrap;
+    font-family: "Inter";
+    color: var(--font-1-color);
+    font-size: 21px;
+
 }
 .row {
     grid-area: row;
@@ -33,6 +37,7 @@
     color: var(--font-2-color);
     flex-grow: 1;
     cursor: pointer;
+    letter-spacing: 0.8px;
 }
 .selection {
     display: flex;
