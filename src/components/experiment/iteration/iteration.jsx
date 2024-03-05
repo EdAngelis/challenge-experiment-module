@@ -1,10 +1,10 @@
-import { useContext } from 'react'
-import { AppContext } from '../../context'
-import styles from './iteration.module.css'
+import { useContext } from "react";
+import { AppContext } from "../../../context";
+import styles from "./iteration.module.css";
 
-export default function Iteration ({ iteration, index }) {
+export default function Iteration({ iteration, index }) {
   const { toggleIterationOpen, setSize, removeIteration, toggleSelected } =
-    useContext(AppContext)
+    useContext(AppContext);
 
   return (
     <div className={`${styles.container} ${iteration.open && styles.open}`}>
@@ -13,7 +13,7 @@ export default function Iteration ({ iteration, index }) {
         <div
           className={styles.title}
           onClick={() => {
-            toggleIterationOpen(true, iteration.id)
+            toggleIterationOpen(true, iteration.id);
           }}
         >
           {iteration.title}
@@ -36,42 +36,42 @@ export default function Iteration ({ iteration, index }) {
       <div className={`${styles.drawer}`}>
         <div className={styles.content}>
           <button
-            type='button'
+            type="button"
             className={`${
-              iteration.size === '1' ? styles.selected : styles.unselected
+              iteration.size === "1" ? styles.selected : styles.unselected
             }`}
-            onClick={() => setSize('1', iteration.id)}
+            onClick={() => setSize("1", iteration.id)}
           >
             SHORT
           </button>
           <button
-            type='button'
+            type="button"
             className={`${
-              iteration.size === '2' ? styles.selected : styles.unselected
+              iteration.size === "2" ? styles.selected : styles.unselected
             }`}
-            onClick={() => setSize('2', iteration.id)}
+            onClick={() => setSize("2", iteration.id)}
           >
             MEDIUM LENGTH
           </button>
           <button
-            type='button'
+            type="button"
             className={`${
-              iteration.size === '3' ? styles.selected : styles.unselected
+              iteration.size === "3" ? styles.selected : styles.unselected
             }`}
-            onClick={() => setSize('3', iteration.id)}
+            onClick={() => setSize("3", iteration.id)}
           >
             VERY VERY VERY LONG (UP TO 35 CHAR)
           </button>
         </div>
         <div className={styles.actions}>
-          <button type='button' onClick={() => removeIteration(iteration.id)}>
+          <button type="button" onClick={() => removeIteration(iteration.id)}>
             REMOVE
           </button>
           <button
-            type='button'
+            type="button"
             onClick={() => {
-              console.log('DONE')
-              toggleIterationOpen(false, iteration.id)
+              console.log("DONE");
+              toggleIterationOpen(false, iteration.id);
             }}
           >
             DONE
@@ -79,5 +79,5 @@ export default function Iteration ({ iteration, index }) {
         </div>
       </div>
     </div>
-  )
+  );
 }

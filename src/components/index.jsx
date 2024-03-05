@@ -1,4 +1,4 @@
-import Experiment from './experiment/experiment'
-import Iteration from './iteration/iteration'
+import Experiment from "./experiment/experiment";
+import Iteration from "./experiment/iteration/iteration";
 
-export { Experiment, Iteration }
+export { Experiment, Iteration };
