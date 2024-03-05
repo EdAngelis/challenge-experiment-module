@@ -1,30 +1,27 @@
-### The Challenge
-Using the following wireframes, build an experiment module interface. Using your comprehension about how the application functions, construct all applicable tests. 
+### Run the project
 
+1. Clone the project.
 
-### Experimental Module Panel
-<img src="./src/assets/Experiment Module Example.png" alt="Experimental Module Panel"/>
+```
+git clone https://github.com/EdAngelis/challenge-experiment-module.git
+```
 
-### Empty Experiment Module
-<img src="./src/assets/Experiment Module New.png" alt="Experimental Module New"/>
+2. Install dependencies
 
-### Experiment Module Visual States
-<img src="./src/assets/Experiment Module Visual States.png" alt="Experimental Module Visual States"/>
+```
+npm install
+```
 
-### Experiment Module Unlocked
-<img src="./src/assets/Experiment Module Unlocked.png" alt="Experimental Module Unlocked"/>
+3. Run the project
 
-### Export Module Add Iteration Module
-<img src="./src/assets/Export Module Add IM.png" alt="Experimental Module Panel"/>
+```
+npm run dev
+```
 
-### Iteration Module
-<img src="./src/assets/Iteration Module.png" alt="Iteration Module"/>
+4. Run tests
 
-## Instructions
-How to attempt this challenge:
-1. Create a new repo in your account and note the git url
-2. Clone this repo
-3. Solve the challenge
-4. Set your new repo as the origin: git remote set-url origin ${your repo url}
-5. Push your solution to your repo
-6. You must follow these steps for your solution to be accepted -- forks or other methods will not be considered.
+```
+npm run test
+```
+
+#### See the open Issues [here](https://github.com/EdAngelis/challenge-experiment-module/issues)
