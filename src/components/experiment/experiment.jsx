@@ -62,7 +62,11 @@ export default function Experiment ({ experiment }) {
   return (
     <div className={styles.container}>
       {/* TOP */}
-      <div className={styles.top} onClick={() => toggleOpen(experiment)}>
+      <div
+        className={styles.top}
+        onClick={() => toggleOpen(experiment)}
+        data-testid='toggleOpenElement'
+      >
         <span
           className={`${
             experiment.blocked === true ? styles.locked : styles.unlocked
@@ -80,26 +84,29 @@ export default function Experiment ({ experiment }) {
       {/* CONTENT */}
       <div
         className={`${styles.contentWrapper} ${experiment.open && styles.open}`}
+        data-testid='contentWrapper'
       >
         {/* ITERATIONS */}
         <form onSubmit={handleSubmit(hSubmit)}>
           <div className={styles.iterations}>
-            {experiment.iterations.map((iteration, index) => {
-              return (
-                <div
-                  className={`${styles.iterationElements} ${
-                    index === 0 && styles.first
-                  } ${
-                    index === experiment.iterations.length - 1 &&
-                    !addIterationBoolean &&
-                    styles.last
-                  }`}
-                  key={index}
-                >
-                  <Iteration iteration={iteration} index={index} />
-                </div>
-              )
-            })}
+            {experiment.iterations &&
+              experiment.iterations.map((iteration, index) => {
+                return (
+                  <div
+                    className={`${styles.iterationElements} ${
+                      index === 0 && styles.first
+                    } ${
+                      index === experiment.iterations.length - 1 &&
+                      !addIterationBoolean &&
+                      styles.last
+                    }`}
+                    key={index}
+                    data-testid='iterations'
+                  >
+                    <Iteration iteration={iteration} index={index} />
+                  </div>
+                )
+              })}
 
             {/* ADD ITERATION */}
             {(addIterationBoolean || experiment.iterations.length < 1) && (
@@ -150,6 +157,7 @@ export default function Experiment ({ experiment }) {
                     onClick={() => {
                       removeModule(experiment.id)
                     }}
+                    data-testid='remove'
                   >
                     REMOVE
                   </button>
@@ -184,7 +192,9 @@ export default function Experiment ({ experiment }) {
                   <button type='button' onClick={hCancel}>
                     CANCEL
                   </button>
-                  <button type='submit'>DONE</button>
+                  <button type='submit' data-testid='done'>
+                    DONE
+                  </button>
                 </div>
               </div>
               )}
